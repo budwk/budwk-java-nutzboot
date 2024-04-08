@@ -366,6 +366,11 @@
                 <artifactId>vertx-mqtt</artifactId>
                 <version>${vertx.version}</version>
             </dependency>
+            <dependency>
+                <groupId>io.vertx</groupId>
+                <artifactId>vertx-web</artifactId>
+                <version>${vertx.version}</version>
+            </dependency>
             <!-- neo4j -->
             <dependency>
                 <groupId>org.neo4j.driver</groupId>
