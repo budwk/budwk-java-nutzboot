@@ -71,7 +71,6 @@ V8 在 V7具备的API网关、组件库、认证中心、控制中心等功能�
         ├─wk-platform   控制中心
         ├─wk-cms        内容管理 
         ├─wk-wechat     微信管理 
-        └─wk-device     设备管理
 ```        
 
 * 代码生成器IDEA插件,请下载安装 [https://gitee.com/budwk/budwk-codegenerator](https://gitee.com/budwk/budwk-codegenerator)
