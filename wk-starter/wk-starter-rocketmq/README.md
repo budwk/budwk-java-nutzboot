@@ -9,8 +9,12 @@
 ./mqnamesrv
 ```
 
-* 启动broker
+* 编辑 broker.conf
+```text
+brokerIP1=服务器IP
+```
 
+* 启动broker
 ```text
 ./mqbroker -n localhost:9876 autoCreateTopicEnable=true --enable-proxy 
 ```
