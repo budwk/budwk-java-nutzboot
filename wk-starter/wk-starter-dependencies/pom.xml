@@ -10,12 +10,12 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <packaging>pom</packaging>
-    <version>8.2.0-SNAPSHOT</version>
+    <version>8.3.0-SNAPSHOT</version>
     <groupId>com.budwk.starter</groupId>
     <artifactId>wk-starter-dependencies</artifactId>
 
     <properties>
-        <budwk.version>8.2.0-SNAPSHOT</budwk.version>
+        <budwk.version>8.3.0-SNAPSHOT</budwk.version>
         <lombok.version>1.18.18</lombok.version>
         <nutz.version>1.r.70-SNAPSHOT</nutz.version>
         <nutzmore.version>1.r.70-SNAPSHOT</nutzmore.version>
@@ -31,7 +31,7 @@
         <logback.version>1.2.9</logback.version>
         <transmittable-thread-local.version>2.12.1</transmittable-thread-local.version>
         <tencentcloud-sdk-java.version>4.0.11</tencentcloud-sdk-java.version>
-        <netty.version>4.1.63.Final</netty.version>
+        <netty.version>4.1.77.Final</netty.version>
         <commons-lang3.version>3.12.0</commons-lang3.version>
         <mysql-connector-java.version>8.0.28</mysql-connector-java.version>
         <rocketmq.version>5.2.0</rocketmq.version>
@@ -46,6 +46,7 @@
         <oshi-core.version>5.7.3</oshi-core.version>
         <emoji-java.veision>5.1.1</emoji-java.veision>
         <elasticsearch.veision>8.9.0</elasticsearch.veision>
+        <mongodb-driver-sync.version>5.0.1</mongodb-driver-sync.version>
 
         <maven.plugin.version>3.8.1</maven.plugin.version>
         <maven-jar-plugin.version>3.1.0</maven-jar-plugin.version>
@@ -167,6 +168,11 @@
                 <artifactId>wk-starter-elasticsearch</artifactId>
                 <version>${budwk.version}</version>
             </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>wk-starter-mongodb</artifactId>
+                <version>${budwk.version}</version>
+            </dependency>
             <!-- nutz -->
             <dependency>
                 <groupId>org.nutz</groupId>
@@ -262,6 +268,12 @@
                 <groupId>com.google.code.gson</groupId>
                 <artifactId>gson</artifactId>
                 <version>${gson.version}</version>
+            </dependency>
+            <!-- mongodb new -->
+            <dependency>
+                <groupId>org.mongodb</groupId>
+                <artifactId>mongodb-driver-sync</artifactId>
+                <version>${mongodb-driver-sync.version}</version>
             </dependency>
             <!-- tdengine -->
             <dependency>

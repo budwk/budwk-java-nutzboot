@@ -6,7 +6,7 @@
 
     <groupId>com.budwk</groupId>
     <artifactId>wk-starter</artifactId>
-    <version>8.2.0-SNAPSHOT</version>
+    <version>8.3.0-SNAPSHOT</version>
     <modules>
         <module>wk-starter-openapi</module>
         <module>wk-starter-dependencies</module>
@@ -30,10 +30,11 @@
         <module>wk-starter-redisjson</module>
         <module>wk-starter-neo4j</module>
         <module>wk-starter-elasticsearch</module>
+        <module>wk-starter-mongodb</module>
     </modules>
     <packaging>pom</packaging>
     <properties>
-        <budwk.version>8.2.0-SNAPSHOT</budwk.version>
+        <budwk.version>8.3.0-SNAPSHOT</budwk.version>
         <nutzboot.version>2.6.0-SNAPSHOT</nutzboot.version>
 
         <maven.compiler.source>11</maven.compiler.source>
