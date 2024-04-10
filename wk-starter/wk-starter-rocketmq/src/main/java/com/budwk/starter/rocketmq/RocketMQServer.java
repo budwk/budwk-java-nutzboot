@@ -35,6 +35,9 @@ public class RocketMQServer implements ServerFace {
     @PropDoc(value = "RocketMQ 生产者组", defaultValue = "")
     public static final String PROP_PRODUCER_GROUP = PRE + "producer-group";
 
+    @PropDoc(value = "RocketMQ 生产者发送超时时间", defaultValue = "")
+    public static final String PROP_PRODUCER_TIMEOUT = PRE + "producer-timeout";
+
     @PropDoc(value = "RocketMQ 消费者最大线程数", defaultValue = "")
     public static final String PROP_CONSUMER_THREAD_MAX = PRE + "consumer-thread-max";
 
@@ -64,12 +67,28 @@ public class RocketMQServer implements ServerFace {
         rmqConsumer.close();
     }
 
+    public SendResult send(String topic, byte[] msg) throws Exception {
+        return this.send(topic, "", msg, conf.getLong(PROP_PRODUCER_TIMEOUT, 0));
+    }
+
+    public void sendVoid(String topic, byte[] msg) throws Exception {
+        this.send(topic, "", msg, conf.getLong(PROP_PRODUCER_TIMEOUT, 0));
+    }
+
     public SendResult send(String topic, byte[] msg, long timeout) throws Exception {
         return this.send(topic, "", msg, timeout);
     }
 
     public void sendVoid(String topic, byte[] msg, long timeout) throws Exception {
         this.send(topic, "", msg, timeout);
+    }
+
+    public SendResult send(String topic, String tags, byte[] msg) throws Exception {
+        return this.send(topic, tags, "", msg, DelayTimeLevel.ZERO, conf.getLong(PROP_PRODUCER_TIMEOUT, 0));
+    }
+
+    public void sendVoid(String topic, String tags, byte[] msg) throws Exception {
+        this.send(topic, tags, "", msg, DelayTimeLevel.ZERO, conf.getLong(PROP_PRODUCER_TIMEOUT, 0));
     }
 
     public SendResult send(String topic, String tags, byte[] msg, long timeout) throws Exception {
