@@ -42,7 +42,7 @@ public class RocketMQConsumer {
             DefaultMQPushConsumer consumer = createRocketMQConsumer(listener, rmqConsumer);
             try {
                 consumer.start();
-                log.info("A consumer as {} topic:{},consumerGroup:{},tag:{} init on namesrc {}", listener.getClass().getSimpleName(), rmqConsumer.topic(), rmqConsumer.consumerGroup(), rmqConsumer.tag(), namesrvAddr);
+                log.debug("A consumer as {} topic:{},consumerGroup:{},tag:{} init on namesrc {}", listener.getClass().getSimpleName(), rmqConsumer.topic(), rmqConsumer.consumerGroup(), rmqConsumer.tag(), namesrvAddr);
             } catch (MQClientException e) {
                 throw new RuntimeException("A consumer as " + listener.getClass().getSimpleName() + " start fail, " + e.getMessage());
             }
@@ -82,7 +82,7 @@ public class RocketMQConsumer {
                 // 顺序消费
                 consumer.registerMessageListener((MessageListenerOrderly) (msgs, context) -> {
                     for (MessageExt ext : msgs) {
-                        log.info("Orderly message, {}", ext);
+                        log.debug("Orderly message, {}", ext);
                         listener.onMessage(ext.getBody());
                     }
                     return ConsumeOrderlyStatus.SUCCESS;
@@ -91,7 +91,7 @@ public class RocketMQConsumer {
                 // 并发
                 consumer.registerMessageListener((MessageListenerConcurrently) (msgs, context) -> {
                     for (MessageExt ext : msgs) {
-                        log.info("Concurrently message, {}", ext);
+                        log.debug("Concurrently message, {}", ext);
                         listener.onMessage(ext.getBody());
                     }
                     return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
@@ -109,7 +109,7 @@ public class RocketMQConsumer {
         for (DefaultMQPushConsumer consumer : consumerList) {
             if (consumer != null) {
                 consumer.shutdown();
-                log.info("consumer shutdown consumerGroup {}", consumer.getConsumerGroup());
+                log.debug("consumer shutdown consumerGroup {}", consumer.getConsumerGroup());
             }
         }
     }

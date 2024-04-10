@@ -120,7 +120,7 @@ public class RocketMQServer implements ServerFace {
         while (messagesSplitter.hasNext()) {
             List<Message> subMessageList = messagesSplitter.next();
             SendResult sendResult = this.defaultMQProducer.send(subMessageList);
-            log.info("消息发送状态: {}, size,{}", sendResult, sendResult.getMsgId().split(",").length);
+            log.debug("消息发送状态: {}, size,{}", sendResult, sendResult.getMsgId().split(",").length);
         }
     }
 
@@ -148,7 +148,7 @@ public class RocketMQServer implements ServerFace {
     private SendResult sendMsg(String topic, String tags, String keys, byte[] msg, SendCallback sendCallback, boolean isOneway,
                                DelayTimeLevel delayTimeLevel, long timeout) throws Exception {
         Message message = createMessage(topic, tags, keys, msg, sendCallback, isOneway, delayTimeLevel, timeout);
-        log.info("监听到消息发送, topic={}, tags={}, keys={}, msg={}, isOneway={}, delayTimeLevel={}, timeout={}",
+        log.debug("监听到消息发送, topic={}, tags={}, keys={}, msg={}, isOneway={}, delayTimeLevel={}, timeout={}",
                 topic, tags, keys, msg, isOneway, delayTimeLevel, timeout);
         if (isOneway) {
             // 单向发送,由于在oneway方式发送消息时没有请求应答处理，如果出现消息发送失败，则会因为没有重试而导致数据丢失。若数据不可丢，建议选用可靠同步或可靠异步发送方式。
@@ -172,7 +172,7 @@ public class RocketMQServer implements ServerFace {
     private SendResult sendMsg(String topic, String tags, String keys, byte[] msg, SendCallback sendCallback, boolean isOneway,
                                DelayTimeLevel delayTimeLevel, long timeout, MessageQueueSelector selector, Object arg) throws Exception {
         Message message = createMessage(topic, tags, keys, msg, sendCallback, isOneway, delayTimeLevel, timeout);
-        log.info("监听到消息发送, message={}", message);
+        log.debug("监听到消息发送, message={}", message);
         return this.defaultMQProducer.send(message, selector, arg);
     }
 
