@@ -94,18 +94,24 @@
     & .nest-menu .el-sub-menu>.el-sub-menu__title,
     & .el-sub-menu .el-menu-item {
       min-width: $base-sidebar-width;
+      height: $base-menu-height;
+      line-height: $base-menu-height;
+      &.is-active {
+        background-color: $base-menu-background-active !important;
+        color: $base-menu-color-active !important;
+      }
 
       &:hover {
-        background-color: rgba(0, 0, 0, 0.06) !important;
+        color: $base-menu-color-active !important;
       }
     }
 
     & .theme-dark .nest-menu .el-sub-menu>.el-sub-menu__title,
     & .theme-dark .el-sub-menu .el-menu-item {
-      background-color: $base-sub-menu-background !important;
+      background-color: $base-sub-menu-background;
 
       &:hover {
-        background-color: $base-sub-menu-hover !important;
+        color: $base-menu-color-active !important;
       }
     }
   }

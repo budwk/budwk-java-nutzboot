@@ -110,7 +110,7 @@ const predefineColors = ref(["#409EFF", "#ff4500", "#ff8c00", "#ffd700", "#90ee9
 const topNav = computed({
     get: () => storeSettings.value.topNav,
     set: (val) => {
-        userSettings.changeSetting({ key: 'topNav', value: val })
+        userSettings.setTopNav(val)
         if (val) {
             client.toggleSideBarOpen(true);
         } else {
@@ -122,52 +122,56 @@ const topNav = computed({
 const tagsView = computed({
     get: () => storeSettings.value.tagsView,
     set: (val) => {
-        userSettings.changeSetting({ key: 'tagsView', value: val })
+        userSettings.setTagsView(val)
     }
 })
 /**是否需要固定头部 */
 const fixedHeader = computed({
     get: () => storeSettings.value.fixedHeader,
     set: (val) => {
-        userSettings.changeSetting({ key: 'fixedHeader', value: val })
+        userSettings.setFixedHeader(val)
     }
 })
 /**是否需要侧边栏的logo */
 const sidebarLogo = computed({
     get: () => storeSettings.value.sidebarLogo,
     set: (val) => {
-        userSettings.changeSetting({ key: 'sidebarLogo', value: val })
+        userSettings.setSidebarLogo(val)
     }
 })
 /**是否需要侧边栏的动态网页的title */
 const dynamicTitle = computed({
     get: () => storeSettings.value.dynamicTitle,
     set: (val) => {
-        userSettings.changeSetting({ key: 'dynamicTitle', value: val })
+        userSettings.setDynamicTitle(val)
         // 动态设置网页标题
         setTitleFromRoute()
     }
 })
 
 function themeChange(val: any) {
-    userSettings.changeSetting({ key: 'themeColor', value: val })
+    userSettings.setThemeColor(val)
     themeColor.value = val;
     handleThemeStyle(val);
 }
 function handleTheme(val: any) {
-    userSettings.changeSetting({ key: 'sideTheme', value: val })
+    userSettings.setSideTheme(val)
     sideTheme.value = val;
 }
 function saveSetting() {
     modal.loading("正在保存到本地，请稍候...");
     const layoutSetting: UserSettings = {
-        "topNav": storeSettings.value.topNav,
-        "tagsView": storeSettings.value.tagsView,
-        "fixedHeader": storeSettings.value.fixedHeader,
-        "sidebarLogo": storeSettings.value.sidebarLogo,
-        "dynamicTitle": storeSettings.value.dynamicTitle,
-        "sideTheme": storeSettings.value.sideTheme,
-        "themeColor": storeSettings.value.themeColor
+        topNav: storeSettings.value.topNav,
+        tagsView: storeSettings.value.tagsView,
+        fixedHeader: storeSettings.value.fixedHeader,
+        sidebarLogo: storeSettings.value.sidebarLogo,
+        dynamicTitle: storeSettings.value.dynamicTitle,
+        sideTheme: storeSettings.value.sideTheme,
+        themeColor: storeSettings.value.themeColor,
+        title: storeSettings.value.title,
+        sideWidth: storeSettings.value.sideWidth,
+        showSettings: storeSettings.value.showSettings,
+        defaultLang: storeSettings.value.defaultLang,
     };
     userSettings.dataFill(layoutSetting)
     setTimeout(()=>{modal.closeLoading()}, 1000)
