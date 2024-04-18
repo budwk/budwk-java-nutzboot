@@ -332,7 +332,8 @@ const handleLogin = (formEl: InstanceType<typeof ElForm> | undefined) => {
                 setTimeout(()=>{
                     ElMessage.success('登录成功！') 
                 },300)
-                router.push({ path: redirect?.toString() || "/platform/dashboard" });
+                const home = process.env.BASE_APP_HOME_PATH
+                router.push({ path: redirect?.toString() || home });
             }).catch(() => {
                 loginData.btnLoading = false
                 loginData.captchaCode = ''
