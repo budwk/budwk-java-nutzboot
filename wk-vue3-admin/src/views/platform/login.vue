@@ -208,7 +208,7 @@ const loginData = reactive({
     smscode: '',
     mobile: '',
     rsaKey: '',
-    appId: platformInfo.AppDefault,
+    appId: process.env.BASE_APP_ID,
     type: 'password',
     btnLoading: false
 })
