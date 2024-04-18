@@ -11,7 +11,7 @@ export const useUserSettings = defineStore('userSettings',{
             sideWidth: '320px',
             showSettings: false,
             topNav: false,
-            tagsView: true,
+            tagsView: false,
             fixedHeader: false,
             sidebarLogo: true,
             dynamicTitle: true,
