@@ -68,7 +68,7 @@ const visitedViews = computed(() => useTagsView().visitedViews)
 const routes = computed(() => useUserViews().routes)
 const themeColor = computed(() => useUserSettings().themeColor)
 const sidebar = computed(() => client.sidebar)
-
+const tagVisible = computed(() => useUserSettings().tagsView)
 watch(route, () => {
     addTags()
     moveToCurrentTag()
@@ -137,6 +137,7 @@ function filterAffixTags(routes: any, basePath = '') {
     return tags
 }
 function initTags() {
+    if(!tagVisible.value) return 
     const res = filterAffixTags(routes.value);
     affixTags.value = res;
     for (const tag of res) {
@@ -147,6 +148,7 @@ function initTags() {
     }
 }
 function addTags() {
+    if(!tagVisible.value) return 
     const { name } = route
     if (name) {
         useTagsView().addView(route)
