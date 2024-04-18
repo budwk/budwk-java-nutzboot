@@ -34,7 +34,6 @@ import { useUserViews } from '/@/stores/userViews'
 import { useUserSettings } from '/@/stores/userSettings'
 
 const sidebarRouters =  computed(() => useUserViews().sidebarRouters)
-const showLogo = computed(() => useUserSettings().sidebarLogo)
 const sideTheme = computed(() => useUserSettings().sideTheme)
 const themeColor = computed(() =>  useUserSettings().themeColor)
 const sidebarHide = computed(() =>  useClient().sidebar.hide)
