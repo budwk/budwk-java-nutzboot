@@ -16,6 +16,7 @@ import SvgIcon from '/@/components/SvgIcon/index.vue'
 import RightToolbar from '/@/components/RightToolbar/index.vue'
 // 分页组件
 import Pagination from '/@/components/Pagination/index.vue'
+import ProTableList from '/@/components/ProTableList/index.vue'
 import Cookies from 'js-cookie'
 import Import from '/@/components/Import/index.vue'
 import Export from '/@/components/Export/index.vue'
@@ -36,6 +37,7 @@ async function start() {
     app.component('RightToolbar', RightToolbar)
     // 注册分页组件
     app.component('Pagination', Pagination)
+    app.component('ProTableList', ProTableList)
     // 注册导入组件
     app.component('Import', Import)
     app.component('Export', Export)
