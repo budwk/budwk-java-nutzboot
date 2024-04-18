@@ -1,7 +1,7 @@
 <template>
     <el-breadcrumb class="app-breadcrumb" separator="/">
       <transition-group name="breadcrumb">
-        <el-breadcrumb-item :to="{ path: '/platform/dashboard' }" :key="'dashboard'">控制台</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: home }" :key="'dashboard'">控制台</el-breadcrumb-item>
         <el-breadcrumb-item v-for="(item) in levelList" :key="item">
         <span class="no-redirect">{{ item }}</span>
       </el-breadcrumb-item>
@@ -16,7 +16,7 @@ import { useRoute } from "vue-router"
 const route = useRoute()
 const router = useRouter()
 const levelList = ref([])
-  
+const home = process.env.BASE_APP_HOME_PATH  
 function getBreadcrumb() {
     const name = route && route.name?.toString()
     if (!name) {
