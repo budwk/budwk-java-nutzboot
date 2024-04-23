@@ -18,7 +18,7 @@
                 <slot />
             </el-table>
         </div>
-        <div v-if="pageData.totalCount > pageData.pageSize || pageData.pageSize > 10" class="data-list__pager">
+        <div class="data-list__pager">
             <el-pagination
                 :current-page="pageData.pageNo"
                 :page-size="pageData.pageSize"
@@ -28,6 +28,7 @@
                 layout="total, ->, prev, pager, next, sizes, jumper"
                 @current-change="doChangePage"
                 @size-change="doSizeChange"
+                small
             />
         </div>
     </div>
@@ -185,6 +186,12 @@ onMounted(() => {
     if(!props.lazy) {
         getList()
     }
+})
+
+defineExpose({
+    query,
+    reset,
+    clearSelection
 })
 </script>
 <style scoped lang="scss">
