@@ -73,6 +73,12 @@
       overflow: hidden !important;
       text-overflow: ellipsis !important;
       white-space: nowrap !important;
+      height: 45px;
+      line-height: 45px;
+      &.is-active {
+        background-color: $base-menu-background-active !important;
+        color: $base-menu-color-active !important;
+      }
     }
 
     .el-menu-item .el-menu-tooltip__trigger {

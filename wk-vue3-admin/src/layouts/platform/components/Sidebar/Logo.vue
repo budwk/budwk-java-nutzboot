@@ -51,6 +51,7 @@ const showLogo = computed(() => useUserSettings().sidebarLogo)
   text-align: center;
   overflow: hidden;
   flex: 0 0 50px;
+  margin-bottom: 10px;
 
   & .sidebar-logo-link {
     height: 100%;
