@@ -32,7 +32,7 @@ import router from '/@/router/index'
 
 const userInfo = useUserInfo()
 const apps = computed(() => userInfo.apps);
-const appName = computed(() => getAppName(useClient().appId ? useClient().appId : usePlatformInfo().AppDefault))
+const appName = computed(() => getAppName(useClient().appId ? useClient().appId : process.env.BASE_APP_ID as string));
 
 const getAppName = (id: string) => {
     if (apps.value && apps.value.length > 0) {
