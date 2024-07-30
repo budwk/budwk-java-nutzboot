@@ -194,8 +194,16 @@ public class SysUserController {
     @SaCheckPermission("sys.manage.user")
     public Result<?> list(@Param("beginTime") Long beginTime, @Param("endTime") Long endTime, @Param("disabled") Boolean disabled, @Param("mobile") String mobile, @Param("unitPath") String unitPath, @Param("postId") String postId, @Param("username") String username, @Param("loginname") String loginname, @Param("query") String query, @Param("pageNo") int pageNo, @Param("pageSize") int pageSize, @Param("pageOrderName") String pageOrderName, @Param("pageOrderBy") String pageOrderBy) {
         Cnd cnd = Cnd.NEW();
-        if (Strings.isNotBlank(unitPath)) {
-            cnd.and("unitPath", "like", unitPath + "%");
+        if (StpUtil.hasRole("sysadmin")) {
+            if (Strings.isNotBlank(unitPath)) {
+                cnd.and("unitPath", "like", unitPath + "%");
+            }
+        } else {
+            if (Strings.isNotBlank(unitPath)) {
+                cnd.and("unitPath", "like", unitPath + "%");
+            } else {
+                cnd.and("unitPath", "like", SecurityUtil.getUnitPath() + "%");
+            }
         }
         if (Strings.isNotBlank(postId)) {
             cnd.and("postId", "=", postId);
@@ -498,8 +506,16 @@ public class SysUserController {
     @SaCheckPermission("sys.manage.user.export")
     public void export(@Param("disabled") Boolean disabled, @Param("beginTime") Long beginTime, @Param("endTime") Long endTime, @Param("mobile") String mobile, @Param("loginname") String loginname, @Param("username") String username, @Param("unitPath") String unitPath, @Param("postId") String postId, @Param("query") String query, @Param("pageOrderName") String pageOrderName, @Param("pageOrderBy") String pageOrderBy, HttpServletRequest req, HttpServletResponse response) {
         Cnd cnd = Cnd.NEW();
-        if (Strings.isNotBlank(unitPath)) {
-            cnd.and("unitPath", "like", unitPath + "%");
+        if (StpUtil.hasRole("sysadmin")) {
+            if (Strings.isNotBlank(unitPath)) {
+                cnd.and("unitPath", "like", unitPath + "%");
+            }
+        } else {
+            if (Strings.isNotBlank(unitPath)) {
+                cnd.and("unitPath", "like", unitPath + "%");
+            } else {
+                cnd.and("unitPath", "like", SecurityUtil.getUnitPath() + "%");
+            }
         }
         if (Strings.isNotBlank(postId)) {
             cnd.and("postId", "=", postId);

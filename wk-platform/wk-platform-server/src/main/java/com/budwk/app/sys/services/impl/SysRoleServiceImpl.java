@@ -18,6 +18,7 @@ import org.nutz.dao.sql.Sql;
 import org.nutz.ioc.aop.Aop;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
+import org.nutz.lang.Lang;
 import org.nutz.lang.Strings;
 import org.nutz.lang.random.R;
 import org.nutz.plugins.wkcache.annotation.CacheDefaults;
@@ -25,6 +26,7 @@ import org.nutz.plugins.wkcache.annotation.CacheResult;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author wizzer@qq.com
@@ -106,7 +108,7 @@ public class SysRoleServiceImpl extends BaseServiceImpl<Sys_role> implements Sys
     @Override
     public Pagination getSelUserListPage(String roleId, String username, boolean sysadmin, String unitId, int pageNo, int pageSize, String pageOrderName, String pageOrderBy) {
         Sql sql;
-        if(Strings.isNotBlank(unitId)) {
+        if (Strings.isNotBlank(unitId)) {
             sql
                     = Sqls.create("SELECT " +
                     " a.*,b.name as unitname " +
@@ -115,14 +117,20 @@ public class SysRoleServiceImpl extends BaseServiceImpl<Sys_role> implements Sys
                     " LEFT JOIN sys_unit b ON a.unitId = b.id " +
                     " WHERE " +
                     " a.id NOT IN ( SELECT c.userId FROM sys_role_user c WHERE c.roleId = @roleId ) " +
-                    " and (a.unitId=@masterId or a.unitId in (@unitIds) ) $s2 $order");
+                    " and (a.unitId=@masterId $s1 ) $s2 $order");
             sql.params().set("roleId", roleId);
             //获取总公司或分公司ID
             String masterId = sysUnitService.getMasterCompanyId(unitId);
             //查询出直属及下属部门用户(不垮分公司)
             sql.params().set("masterId", masterId);
-            sql.params().set("unitIds", sysUnitService.getSubUnitIds(masterId).toArray());
-        }else {
+            List<String> unitIds = sysUnitService.getSubUnitIds(masterId);
+            if (!Lang.isEmpty(unitIds)) {
+                String unitIdsString = unitIds.stream()
+                        .map(id -> "'" + id + "'")
+                        .collect(Collectors.joining(", "));
+                sql.vars().set("s1", " or a.unitId in (" + unitIdsString + ")");
+            }
+        } else {
             sql
                     = Sqls.create("SELECT " +
                     " a.*,b.name as unitname " +
