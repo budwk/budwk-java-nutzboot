@@ -118,6 +118,31 @@ public class StorageServer {
 
     /**
      * 文件下载
+     * @param path     文件路径 ,使用第三方云存储path为存储桶名称
+     * @return 文件字节数组
+     * @throws FileStorageException
+     */
+    public byte[] download(String path) throws FileStorageException {
+        if (!conf.getBoolean(FILE_STORAGE_ENABLE, false)) {
+            throw new FileStorageException("文件存储服务未启用");
+        }
+        return iStorageService.download(path);
+    }
+
+    /**
+     * 文件下载
+     * @param path     文件路径 ,使用第三方云存储path为存储桶名称
+     * @throws FileStorageException
+     */
+    public void download(String path, OutputStream os) throws FileStorageException {
+        if (!conf.getBoolean(FILE_STORAGE_ENABLE, false)) {
+            throw new FileStorageException("文件存储服务未启用");
+        }
+        iStorageService.download(path, os);
+    }
+
+    /**
+     * 文件下载
      * <p><b style=color:red>注意</b>，它并不会关闭返回流
      * @param path     文件路径 ,使用第三方云存储path为存储桶名称
      * @param filename 文件完整名称
