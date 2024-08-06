@@ -81,6 +81,25 @@ public class FtpStorageServiceImpl implements IStorageService {
     }
 
     @Override
+    public byte[] download(String path) throws FileStorageException {
+        try {
+            return Streams.readBytesAndClose(downloadInputStream(path));
+        } catch (Exception e) {
+            throw new FileStorageException(e.getMessage());
+        }
+    }
+
+    @Override
+    public void download(String path, OutputStream os) throws FileStorageException {
+        try (InputStream is = downloadInputStream(path)) {
+            Streams.write(os, is);
+        } catch (Exception e) {
+            throw new FileStorageException(e.getMessage());
+        }
+    }
+
+
+    @Override
     public InputStream downloadStream(String path, String filename) throws FileStorageException {
         try {
             return downloadInputStream(path, filename);
@@ -171,6 +190,32 @@ public class FtpStorageServiceImpl implements IStorageService {
     private InputStream downloadInputStream(String path, String filename) throws Exception {
         FTPClient ftp = null;
         String filepath = conf.get(StorageServer.FTP_STORAGE_PATH) + path + "/" + filename;
+        try {
+            String fileNameHasPath = new String(filepath.getBytes("UTF-8"), "ISO-8859-1");
+            ftp = ftpService.connect();
+            if (null == ftp) {
+                throw new FileStorageException("FTP链接异常，文件下载中断");
+            }
+            InputStream is = ftp.retrieveFileStream(fileNameHasPath);
+            if (null == is || ftp.getReplyCode() == 550) {
+                throw new FileStorageException("文件不存在 " + ftp.getReplyString());
+            }
+            return is;
+        } finally {
+            if (ftp.isConnected()) {
+                try {
+                    ftp.logout();
+                    ftp.disconnect();
+                } catch (IOException ex) {
+                    log.error("close ftp client error");
+                }
+            }
+        }
+    }
+
+    private InputStream downloadInputStream(String path) throws Exception {
+        FTPClient ftp = null;
+        String filepath = conf.get(StorageServer.FTP_STORAGE_PATH) + path;
         try {
             String fileNameHasPath = new String(filepath.getBytes("UTF-8"), "ISO-8859-1");
             ftp = ftpService.connect();

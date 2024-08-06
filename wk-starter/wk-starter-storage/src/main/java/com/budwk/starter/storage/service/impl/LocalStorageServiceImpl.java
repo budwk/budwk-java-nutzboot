@@ -74,6 +74,24 @@ public class LocalStorageServiceImpl implements IStorageService {
     }
 
     @Override
+    public byte[] download(String path) throws FileStorageException {
+        try {
+            return Files.readBytes(conf.get(StorageServer.LOCAL_STORAGE_PATH) + path);
+        } catch (Exception e) {
+            throw new FileStorageException(e.getMessage());
+        }
+    }
+
+    @Override
+    public void download(String path, OutputStream os) throws FileStorageException {
+        try (InputStream is = Files.findFileAsStream(conf.get(StorageServer.LOCAL_STORAGE_PATH) + path)) {
+            Streams.write(os, is);
+        } catch (Exception e) {
+            throw new FileStorageException(e.getMessage());
+        }
+    }
+
+    @Override
     public InputStream downloadStream(String path, String filename) throws FileStorageException {
         try {
             return Files.findFileAsStream(conf.get(StorageServer.LOCAL_STORAGE_PATH) + path + "/" + filename);

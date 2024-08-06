@@ -43,6 +43,22 @@ public interface IStorageService {
 
     /**
      * 下载文件
+     * @param path      存储路径
+     * @return 文件字节
+     */
+    byte[] download(String path) throws FileStorageException;
+
+    /**
+     * 下载文件-直接写入输出流
+     * @param path      存储路径
+     * @param os        输出流
+     * @throws FileStorageException
+     */
+    void download(String path, OutputStream os) throws FileStorageException;
+
+
+    /**
+     * 下载文件
      * <p>
      * <b style=color:red>注意</b>，它并不会关闭返回流
      * @param path      存储路径 文件完整名称
