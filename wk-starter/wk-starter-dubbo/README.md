@@ -23,3 +23,4 @@ dubbo:
 
 * 为 dubbo 增加日志追踪功能 
 * 重写 dubbo-registry-nacos
+* nacos 如果设置了用户名和密码，则 `address: nacos://127.0.0.1:8848?namespace=dev&username=n&password=p`
