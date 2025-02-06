@@ -125,7 +125,7 @@ public class AuthController {
             }
         }
         if(!hasApp) {
-            return Result.error("应用不存在或未启用");
+            return Result.error("应用未加载成功，请刷新网页");
         }
         Sys_user user = null;
         Sys_user_security security = sysUserService.getUserSecurity();
@@ -133,7 +133,7 @@ public class AuthController {
             authService.checkLoginname(loginname, Lang.getIP(req), security != null && security.getNameRetryLock(), security == null ? 0 : security.getNameRetryNum(), security == null ? 0 : security.getNameTimeout());
             String str = redisService.get(RedisConstant.PRE + "ucenter:rsa:" + rsaKey);
             if (Strings.isBlank(str)) {
-                throw new BaseException("RSA密钥获取失败");
+                throw new BaseException("网页已过期，请刷新网页");
             }
             NutMap nutMap = Json.fromJson(NutMap.class, str);
             RSA rsa = new RSA(nutMap.getString("privateKey"), nutMap.getString("publickKey"));
