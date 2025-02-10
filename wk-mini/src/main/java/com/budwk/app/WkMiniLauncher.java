@@ -54,10 +54,10 @@ public class WkMiniLauncher {
     }
 
     public void init() {
-        //初始化系统表数据
-        databaseInit();
         //定时任务初始化
         taskInit();
+        //初始化系统表数据
+        databaseInit();
     }
 
     public void taskInit() {

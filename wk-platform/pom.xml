@@ -15,6 +15,7 @@
     <properties>
         <budwk.version>8.3.0-SNAPSHOT</budwk.version>
         <nutzboot.version>2.6.0-SNAPSHOT</nutzboot.version>
+        <postgresql.version>42.7.3</postgresql.version>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

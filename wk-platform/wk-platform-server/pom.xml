@@ -13,6 +13,12 @@
     <artifactId>wk-platform-server</artifactId>
 
     <dependencies>
+        <!-- PostgreSQL 驱动 -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${postgresql.version}</version>
+        </dependency>
         <dependency>
             <groupId>com.budwk.app</groupId>
             <artifactId>wk-platform-common</artifactId>

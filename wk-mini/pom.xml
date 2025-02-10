@@ -15,6 +15,7 @@
         <slf4j.version>1.7.25</slf4j.version>
         <logback.version>1.2.3</logback.version>
         <easy-captcha.version>1.6.2</easy-captcha.version>
+        <postgresql.version>42.7.3</postgresql.version>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -38,6 +39,12 @@
             <scope>system</scope>
             <systemPath>${project.basedir}/src/lib/kingbase8-8.6.0.jar</systemPath>
         </dependency-->
+        <!-- PostgreSQL 驱动 -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${postgresql.version}</version>
+        </dependency>
         <!-- wk-starter -->
         <dependency>
             <groupId>com.budwk.starter</groupId>
